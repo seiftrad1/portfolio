@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 
 // ============================================
 // HOOKS
@@ -21,7 +22,7 @@ const useMousePosition = () => {
 };
 
 const useInView = (threshold = 0.1) => {
-  const ref = useRef(null);
+  const ref = useRef<any>(null);
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const useInView = (threshold = 0.1) => {
     };
   }, [threshold]);
 
-  return [ref, isInView];
+  return [ref, isInView] as const;
 };
 
 // ============================================
@@ -47,41 +48,51 @@ const useInView = (threshold = 0.1) => {
 
 const personas = {
   engineer: {
-    title: 'Software Engineer',
-    subtitle: 'SYSTEM.ARCHITECT',
+    title: 'Full-Stack Engineer',
+    subtitle: 'FULL-STACK ENGINEER',
     color: '#00ff88',
     colorAlt: '#00cc6a',
     colorGlow: 'rgba(0, 255, 136, 0.3)',
     font: "'JetBrains Mono', 'Fira Code', monospace",
     bg: 'radial-gradient(ellipse at 20% 50%, rgba(0, 255, 136, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(0, 204, 106, 0.05) 0%, transparent 40%), linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #010409 100%)',
-    heroText: 'BUILDING_THE_FUTURE',
-    tagline: '> Architecting digital experiences through elegant code',
-    philosophy: 'Code is poetry. Systems are symphonies. Every function tells a story.',
+    heroText: 'SHIPPING_FINTECH_AT_SCALE',
+    tagline: '> Full-stack engineer with 4+ years building fintech platforms end to end with Symfony, React and Next.js',
+    philosophy: 'Code is poetry. Systems are symphonies. Every function tells a story — especially when it moves money safely.',
     skills: [
-      { name: 'REACT/NEXT.JS', level: 95, detail: 'production-ready' },
-      { name: 'TYPESCRIPT', level: 92, detail: 'type-safe' },
-      { name: 'NODE.JS', level: 88, detail: 'scalable' },
-      { name: 'SYSTEM_DESIGN', level: 85, detail: 'distributed' },
-      { name: 'CLOUD/AWS', level: 82, detail: 'serverless' },
-      { name: 'PYTHON', level: 80, detail: 'ml-ready' },
+      { name: 'PHP / SYMFONY', level: 92, detail: 'production-grade' },
+      { name: 'REACT / NEXT.JS', level: 90, detail: 'end-to-end' },
+      { name: 'JAVASCRIPT', level: 90, detail: 'modern ES' },
+      { name: 'MYSQL / POSTGRESQL', level: 85, detail: 'doctrine ORM' },
+      { name: 'REST / GRAPHQL', level: 85, detail: 'hasura' },
+      { name: 'PAYMENT APIS', level: 82, detail: 'fintech-grade' },
+      { name: 'TAILWIND / BOOTSTRAP', level: 88, detail: 'responsive UI' },
+      { name: 'GIT / CI-CD', level: 88, detail: 'deploy pipelines' },
+      { name: 'FIGMA TO CODE', level: 85, detail: 'design fidelity' },
     ],
     projects: [
-      { id: 1, title: 'NEURAL_ANALYTICS', status: 'DEPLOYED', metrics: '1M+ events/day', tech: 'Python • Kafka • K8s', desc: 'Real-time ML pipeline for predictive analytics' },
-      { id: 2, title: 'DEVFLOW_CLI', status: 'OPEN_SOURCE', metrics: '10K+ downloads', tech: 'Rust • GitHub API', desc: 'Developer productivity toolkit' },
-      { id: 3, title: 'QUANTUM_UI', status: 'MAINTAINED', metrics: '50+ components', tech: 'React • TypeScript', desc: 'Accessible component library' },
+      { id: 1, title: 'FLASHPAY', status: 'LIVE', metrics: 'Sky Pay', tech: 'React • Vite.js • Bootstrap', desc: 'Fintech payments website rebuilt from scratch based on Figma designs, with full SEO metadata and a self-hosted knowledge base.' },
+      { id: 2, title: 'CI WALLET', status: 'LIVE', metrics: 'wallet.ci-ex.com', tech: 'Symfony • PHP • MySQL', desc: 'Fintech wallet platform with a redesigned admin dashboard, Clear Junction virtual IBAN integration and card-provider payments.' },
+      { id: 3, title: 'PAYTAPS', status: 'SHIPPED', metrics: 'Card-issuing platform', tech: 'React • Vite.js • Bootstrap', desc: 'Admin dashboard for a fintech card-issuing platform, with manual virtual card issuance and a 15-module API integration layer.' },
+      { id: 4, title: 'ALFAI', status: 'SHIPPED', metrics: 'Automated trading', tech: 'Symfony • Next.js • React', desc: 'Trading automation app connecting exchange accounts, with real-time monitoring and HMAC/RSA-signed API integrations.' },
     ],
     journey: [
-      { year: '2024', event: 'Senior Engineer @ TechCorp' },
-      { year: '2022', event: 'Lead Developer @ StartupX' },
-      { year: '2020', event: 'Full Stack @ Agency' },
-      { year: '2019', event: 'CS Degree • Top of Class' },
+      { year: 'Nov 2022 — Present', event: 'Full-Stack Developer @ Sky Pay, Tunis' },
+      { year: 'Nov 2020 — Apr 2022', event: 'Full-Stack Developer Intern (Remote) @ AMAI Group, Karlsruhe' },
+      { year: '2017 — 2020', event: 'National Computer Engineering Diploma, PHET' },
+      { year: '2013 — 2017', event: 'BSc Computer Science & Multimedia, ISIM Manouba' },
     ],
+    contact: {
+      email: 'mohamedseif.trad@gmail.com',
+      phone: '+216 50 751 708',
+      location: 'Tunis, Tunisia',
+    },
     socials: [
-      { name: 'GitHub', icon: 'github', url: '#' },
-      { name: 'LinkedIn', icon: 'linkedin', url: '#' },
-      { name: 'Email', icon: 'email', url: '#' },
+      { name: 'GitHub', icon: 'github', url: 'https://github.com/seiftrad1' },
+      { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/in/seiftrad' },
+      { name: 'Email', icon: 'email', url: 'mailto:mohamedseif.trad@gmail.com' },
     ],
   },
+  /* Disabled for now — dev persona only. Uncomment to bring back.
   photographer: {
     title: 'Photographer',
     subtitle: 'VISUAL STORYTELLER',
@@ -164,6 +175,7 @@ const personas = {
       { name: 'TikTok', icon: 'tiktok', url: '#' },
     ],
   },
+  */
 };
 
 // ============================================
@@ -292,10 +304,16 @@ const AnimatedName = ({ color, colorAlt, isLoaded }) => {
 // MAGNETIC BUTTON
 // ============================================
 
-const MagneticButton = ({ children, color, onClick, style = {} }) => {
+const MagneticButton = ({ children, color, onClick, href, style = {} }: {
+  children: React.ReactNode;
+  color: string;
+  onClick?: () => void;
+  href?: string;
+  style?: React.CSSProperties;
+}) => {
   const [transform, setTransform] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const buttonRef = useRef(null);
+  const buttonRef = useRef<any>(null);
 
   const handleMouseMove = (e) => {
     if (!buttonRef.current) return;
@@ -305,6 +323,44 @@ const MagneticButton = ({ children, color, onClick, style = {} }) => {
     setTransform({ x: x * 0.2, y: y * 0.2 });
   };
 
+  const sharedStyle = {
+    transform: `translate(${transform.x}px, ${transform.y}px)`,
+    transition: 'transform 0.2s ease-out, background 0.3s ease, box-shadow 0.3s ease',
+    border: `1px solid ${color}`,
+    background: isHovered ? color : 'transparent',
+    color: isHovered ? '#000' : color,
+    padding: '14px 28px',
+    borderRadius: '50px',
+    cursor: 'pointer',
+    fontFamily: "'Space Mono', monospace",
+    fontSize: '0.8rem',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase' as const,
+    textDecoration: 'none',
+    boxShadow: isHovered ? `0 0 30px ${color}60` : 'none',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    ...style,
+  };
+
+  if (href) {
+    return (
+      <a
+        ref={buttonRef}
+        href={href}
+        target={href.startsWith('mailto:') ? undefined : '_blank'}
+        rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => { setTransform({ x: 0, y: 0 }); setIsHovered(false); }}
+        style={sharedStyle}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
     <button
       ref={buttonRef}
@@ -312,25 +368,7 @@ const MagneticButton = ({ children, color, onClick, style = {} }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => { setTransform({ x: 0, y: 0 }); setIsHovered(false); }}
-      style={{
-        transform: `translate(${transform.x}px, ${transform.y}px)`,
-        transition: 'transform 0.2s ease-out, background 0.3s ease, box-shadow 0.3s ease',
-        border: `1px solid ${color}`,
-        background: isHovered ? color : 'transparent',
-        color: isHovered ? '#000' : color,
-        padding: '14px 28px',
-        borderRadius: '50px',
-        cursor: 'pointer',
-        fontFamily: "'Space Mono', monospace",
-        fontSize: '0.8rem',
-        letterSpacing: '0.1em',
-        textTransform: 'uppercase',
-        boxShadow: isHovered ? `0 0 30px ${color}60` : 'none',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        ...style,
-      }}
+      style={sharedStyle}
     >
       {children}
     </button>
@@ -343,7 +381,7 @@ const MagneticButton = ({ children, color, onClick, style = {} }) => {
 
 const TiltCard = ({ children, style = {} }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -890,6 +928,28 @@ export default function SeifPortfolio() {
         {/* Hero Content */}
         <div style={{ textAlign: 'center', position: 'relative', zIndex: 10, maxWidth: '900px' }}>
           <div style={{
+            width: 'clamp(120px, 15vw, 160px)',
+            height: 'clamp(120px, 15vw, 160px)',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            margin: '0 auto 30px',
+            border: `2px solid ${persona.color}`,
+            boxShadow: `0 0 50px ${persona.color}50`,
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? 'translateY(0) scale(1)' : 'translateY(-20px) scale(0.9)',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}>
+            <Image
+              src="/images/seif-headshot.png"
+              alt="Seif Trad"
+              width={160}
+              height={160}
+              priority
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+
+          <div style={{
             fontSize: '0.7rem',
             letterSpacing: '0.4em',
             color: persona.color,
@@ -936,10 +996,11 @@ export default function SeifPortfolio() {
           </p>
         </div>
 
-        {/* Universe Portal */}
+        {/* Universe Portal — disabled while only the dev persona is active. Uncomment to bring back persona switching.
         <div style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.8s ease 0.9s' }}>
           <UniversePortal activePersona={activePersona} onSelect={switchPersona} />
         </div>
+        */}
 
         {/* Scroll Indicator */}
         <div style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
@@ -1034,9 +1095,26 @@ export default function SeifPortfolio() {
             {activePersona === 'creator' && "Let's create something that breaks the internet."}
           </p>
 
+          {persona.contact && (
+            <div style={{
+              display: 'flex',
+              gap: '24px',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              marginBottom: '36px',
+              fontFamily: "'Space Mono', monospace",
+              fontSize: '0.85rem',
+              color: 'rgba(255,255,255,0.6)',
+            }}>
+              <span>{persona.contact.email}</span>
+              <span>{persona.contact.phone}</span>
+              <span>{persona.contact.location}</span>
+            </div>
+          )}
+
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '50px' }}>
             {persona.socials.map((social) => (
-              <MagneticButton key={social.name} color={persona.color}>
+              <MagneticButton key={social.name} color={persona.color} href={social.url}>
                 {Icons[social.icon]}
                 {social.name}
               </MagneticButton>
@@ -1067,7 +1145,7 @@ export default function SeifPortfolio() {
       {/* FOOTER */}
       <footer style={{ padding: '40px 20px', borderTop: `1px solid ${persona.color}20`, textAlign: 'center' }}>
         <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', fontFamily: "'Space Mono', monospace" }}>
-          © 2024 SEIF • {persona.title.toUpperCase()} EDITION
+          © {new Date().getFullYear()} SEIF • {persona.title.toUpperCase()} EDITION
         </p>
       </footer>
     </div>
