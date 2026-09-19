@@ -940,7 +940,7 @@ export default function SeifPortfolio() {
             transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
           }}>
             <Image
-              src="/images/seif-headshot.png"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/seif-headshot.png`}
               alt="Seif Trad"
               width={160}
               height={160}
